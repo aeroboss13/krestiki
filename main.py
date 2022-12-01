@@ -81,13 +81,7 @@ class Field:
                     # print(old_state,state,self.win_state(state))
 
             # Как только игра закончилась, отправить финальное состояние игрокам для пересчета ценностей
-            # player1.refresh_values(state)
-            # player2.refresh_values(state)
-            # print(game_num,' игра. Выиграл игрок №',Field.win_state(state))
-            # print(state[0],state[1],state[2])
-            # print(state[3],state[4],state[5])
-            # print(state[6],state[7],state[8])
-            # print('_______________________')
+
             player1.refresh_values(old_state, state)
             player2.refresh_values(old_state, state)
             # Показать прогресс-бар
@@ -179,6 +173,7 @@ class Player:
         return avail_states
 
     # Принятие решения о следующем шаге
+    # САМА СУТЬ ЗАДАНИЯ
     def make_decission(self, current_state):
         avail_states = self.get_avail_states(current_state)
         # Делать ли разведочный шаг? (с заданной вероятностью) True = да, False = нет
@@ -235,25 +230,16 @@ print('Первый этап обучения')
 # Обучение агента (250 000 игр за крестик и 250 000 игр за нолик)
 tic_tac_toe.start_learning(player1, player2, 50000)
 print()
-# print('Второй этап обучения')
-# tic_tac_toe.start_learning(player2, player1, 250000)
-
-# Вывести историю игр при обучении
-# print(tic_tac_toe.game_history)
-
-# Вывсти наиболее ценные состояния игроков после обучения
-# print(player1.get_top_n_states(20))
-# print(player2.get_top_n_states(20))
 
 ### PVE ###
 while True:
-    human_chouse = input("Выбирай за кого играть! Введи X или O (английские буквы): ")
+    human_chouse = input("Выбирай за кого играть! Введи X или O (Используются только английские буквы): ")
     if human_chouse == 'X':
         tic_tac_toe.start_game(player2, human_chouse)
     elif human_chouse == 'O':
         tic_tac_toe.start_game(player1, human_chouse)
     else:
         "Введи правильную букву"
-    next_game = input("Не получилось... Введи Y или N (английские буквы): ")
+    next_game = input("Не получилось... Введи Y или N (Используются только английские буквы): ")
     if next_game == 'N':
         break;
